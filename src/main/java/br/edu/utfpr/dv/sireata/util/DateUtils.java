@@ -16,14 +16,17 @@ public class DateUtils {
 		
 		return today;
 	}
-	
 	public static Calendar getNow(){
 		Calendar now = Calendar.getInstance();
 		now.set(Calendar.MILLISECOND, 0);
 		
 		return now;
 	}
-	
+	public static Calendar getCalendarDry(Date date){
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal;
+	}
 	public static int getSemester(){
 		Calendar today = DateUtils.getToday();
 		
@@ -33,7 +36,6 @@ public class DateUtils {
 			return 1;
 		}
 	}
-	
 	public static int getSemester(Date date){
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -44,49 +46,38 @@ public class DateUtils {
 			return 1;
 		}
 	}
-	
 	public static int getYear(){
 		Calendar today = DateUtils.getToday();
-		
 		return today.get(Calendar.YEAR);
 	}
 	
 	public static int getDayOfMonth(Date date){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
+		Calendar cal = getCalendarDry(date);
 		return cal.get(Calendar.DAY_OF_MONTH);
 	}
 	
 	public static int getMonth(Date date){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
+		Calendar cal = getCalendarDry(date);
 		return cal.get(Calendar.MONTH);
 	}
 	
 	public static int getYear(Date date){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
+		Calendar cal = getCalendarDry(date);
 		return cal.get(Calendar.YEAR);
 	}
 	
 	public static int getHour(Date date){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
+		Calendar cal = getCalendarDry(date);
 		return cal.get(Calendar.HOUR_OF_DAY);
 	}
 	
 	public static int getMinute(Date date){
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
+		Calendar cal = getCalendarDry(date);
 		return cal.get(Calendar.MINUTE);
 	}
-	
 	public static Date concat(Date date, Date time){
-		Calendar cal = Calendar.getInstance();
-		Calendar cal2 = Calendar.getInstance();
-		
-		cal.setTime(date);
-		cal2.setTime(time);
+		Calendar cal = getCalendarDry(date);
+		Calendar cal2 = getCalendarDry(time);
 		
 		cal.set(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY));
 		cal.set(Calendar.MINUTE, cal2.get(Calendar.MINUTE));

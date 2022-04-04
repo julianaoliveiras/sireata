@@ -8,8 +8,8 @@ import br.edu.utfpr.dv.sireata.dao.AnexoDAO;
 import br.edu.utfpr.dv.sireata.model.Anexo;
 
 public class AnexoBO {
-
-	public Anexo buscarPorId(int id) throws Exception{
+	//dry.buscarPorId(int id);  
+       public Anexo buscarPorId(int id) throws Exception{
 		try{
 			AnexoDAO dao = new AnexoDAO();
 			
