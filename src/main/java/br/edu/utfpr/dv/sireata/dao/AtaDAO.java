@@ -441,10 +441,7 @@ public class AtaDAO {
 			
 			stmt.execute();
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection2(conn, stmt);
 		}
 	}
 	
@@ -458,10 +455,7 @@ public class AtaDAO {
 		
 			stmt.execute("UPDATE atas SET aceitarComentarios=1 WHERE publicada=0 AND idAta=" + String.valueOf(idAta));
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection2(conn, stmt);
 		}
 	}
 	
@@ -475,10 +469,7 @@ public class AtaDAO {
 		
 			stmt.execute("UPDATE atas SET aceitarComentarios=0 WHERE idAta=" + String.valueOf(idAta));
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection2(conn, stmt);
 		}
 	}
 	
@@ -625,6 +616,12 @@ public class AtaDAO {
 			 stmt.close();
 		if((conn != null) && !conn.isClosed())
 			 conn.close();
+	}
+	public void FinallyConnection2(Connection conn, Statement stmt) throws SQLException{
+		if((stmt != null) && !stmt.isClosed())
+				stmt.close();
+			if((conn != null) && !conn.isClosed())
+				conn.close();
 	}
 	public void SQLQuery(Connection conn, Statement stmt, String sql) throws SQLException{
 		
