@@ -31,12 +31,7 @@ public class PautaDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -59,12 +54,7 @@ public class PautaDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -104,12 +94,7 @@ public class PautaDAO {
 			
 			return pauta.getIdPauta();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -140,6 +125,14 @@ public class PautaDAO {
 		pauta.setDescricao(rs.getString("descricao"));
 		
 		return pauta;
+	}
+	public void FinallyConnection(Connection conn, Statement stmt, ResultSet rs) throws SQLException{
+		if((rs != null) && !rs.isClosed())
+			rs.close();
+		if((stmt != null) && !stmt.isClosed())
+			 stmt.close();
+		if((conn != null) && !conn.isClosed())
+			 conn.close();
 	}
 
 }
