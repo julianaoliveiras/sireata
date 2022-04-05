@@ -33,12 +33,7 @@ public class AtaParticipanteDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -63,12 +58,7 @@ public class AtaParticipanteDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -110,12 +100,7 @@ public class AtaParticipanteDAO {
 			
 			return participante.getIdAtaParticipante();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -129,10 +114,7 @@ public class AtaParticipanteDAO {
 		
 			stmt.execute("DELETE FROM ataparticipantes WHERE idAtaParticipante=" + String.valueOf(id));
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection2(conn, stmt);
 		}
 	}
 	
@@ -149,6 +131,20 @@ public class AtaParticipanteDAO {
 		participante.setMembro(rs.getInt("membro") == 1);
 		
 		return participante;
+	}
+	public void FinallyConnection(Connection conn, Statement stmt, ResultSet rs) throws SQLException{
+		if((rs != null) && !rs.isClosed())
+			rs.close();
+		if((stmt != null) && !stmt.isClosed())
+			 stmt.close();
+		if((conn != null) && !conn.isClosed())
+			 conn.close();
+	}
+	public void FinallyConnection2(Connection conn, Statement stmt) throws SQLException{
+		if((stmt != null) && !stmt.isClosed())
+				stmt.close();
+			if((conn != null) && !conn.isClosed())
+				conn.close();
 	}
 
 }
