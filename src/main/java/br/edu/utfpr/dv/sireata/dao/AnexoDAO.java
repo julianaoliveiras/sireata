@@ -32,12 +32,7 @@ public class AnexoDAO {
 				return null;
 			}
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -61,12 +56,7 @@ public class AnexoDAO {
 			
 			return list;
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -106,12 +96,7 @@ public class AnexoDAO {
 			
 			return anexo.getIdAnexo();
 		}finally{
-			if((rs != null) && !rs.isClosed())
-				rs.close();
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection(conn, stmt, rs);
 		}
 	}
 	
@@ -125,10 +110,7 @@ public class AnexoDAO {
 		
 			stmt.execute("DELETE FROM anexos WHERE idanexo=" + String.valueOf(id));
 		}finally{
-			if((stmt != null) && !stmt.isClosed())
-				stmt.close();
-			if((conn != null) && !conn.isClosed())
-				conn.close();
+			FinallyConnection2(conn, stmt);
 		}
 	}
 	
@@ -142,6 +124,20 @@ public class AnexoDAO {
 		anexo.setArquivo(rs.getBytes("arquivo"));
 		
 		return anexo;
+	}
+	public void FinallyConnection(Connection conn, Statement stmt, ResultSet rs) throws SQLException{
+		if((rs != null) && !rs.isClosed())
+			rs.close();
+		if((stmt != null) && !stmt.isClosed())
+			 stmt.close();
+		if((conn != null) && !conn.isClosed())
+			 conn.close();
+	}
+	public void FinallyConnection2(Connection conn, Statement stmt) throws SQLException{
+		if((stmt != null) && !stmt.isClosed())
+				stmt.close();
+			if((conn != null) && !conn.isClosed())
+				conn.close();
 	}
 
 }
