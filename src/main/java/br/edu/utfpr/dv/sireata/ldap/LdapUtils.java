@@ -131,6 +131,7 @@ public class LdapUtils {
 	 * @param url
 	 * @return
 	 */
+	
 	private Hashtable<String, Object> createNoUserLdapProperties(String url) {
 		Hashtable<String, Object> env = new Hashtable<String, Object>(11);
 
