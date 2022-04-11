@@ -59,8 +59,7 @@ public class OrgaoView extends ListView {
 				this.adicionarGridId(itemId, u.getIdOrgao());
 			}
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Listar Usuários", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -82,8 +81,7 @@ public class OrgaoView extends ListView {
 			
 			UI.getCurrent().addWindow(new EditarOrgaoWindow(orgao, this));
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Editar Órgão", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -98,6 +96,9 @@ public class OrgaoView extends ListView {
 	public void filtrar() throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

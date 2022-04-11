@@ -43,8 +43,7 @@ public class DepartamentoView extends ListView {
 				this.adicionarGridId(itemId, d.getIdDepartamento());
 			}
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Listar Departamentos", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -66,8 +65,7 @@ public class DepartamentoView extends ListView {
 			
 			UI.getCurrent().addWindow(new EditarDepartamentoWindow(departamento, this));
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Editar Departamento", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -82,6 +80,9 @@ public class DepartamentoView extends ListView {
 	public void filtrar() throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 	
 }

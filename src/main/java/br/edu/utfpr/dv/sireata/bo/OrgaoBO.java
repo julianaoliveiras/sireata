@@ -10,75 +10,58 @@ import br.edu.utfpr.dv.sireata.model.OrgaoMembro;
 import br.edu.utfpr.dv.sireata.model.Usuario;
 
 public class OrgaoBO {
+	OrgaoDAO dao = new OrgaoDAO();
 	
 	public Orgao buscarPorId(int id) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.buscarPorId(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Orgao> listarTodos(boolean apenasAtivos) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.listarTodos(apenasAtivos);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Orgao> listarPorDepartamento(int idDepartamento) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
-			return dao.listarPorDepartamento(idDepartamento);
+        	return dao.listarPorDepartamento(idDepartamento);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Orgao> listarPorCampus(int idCampus) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.listarPorCampus(idCampus);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Orgao> listarParaCriacaoAta(int idDepartamento, int idUsuario) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.listarParaCriacaoAta(idDepartamento, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Orgao> listarParaConsultaAtas(int idDepartamento, int idUsuario) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.listarParaConsultaAtas(idDepartamento, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -95,36 +78,27 @@ public class OrgaoBO {
 	
 	public Usuario buscarPresidente(int idOrgao) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.buscarPresidente(idOrgao);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public Usuario buscarSecretario(int idOrgao) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.buscarSecretario(idOrgao);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public boolean isMembro(int idOrgao, int idUsuario) throws Exception{
 		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
 			return dao.isMembro(idOrgao, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -158,15 +132,15 @@ public class OrgaoBO {
 			orgao.getMembros().add(membro);
 		}
 		
-		try{
-			OrgaoDAO dao = new OrgaoDAO();
-			
+		try{						
 			return dao.salvar(orgao);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

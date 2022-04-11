@@ -75,8 +75,7 @@ public class EditarAnexoWindow extends EditarWindow {
 			
 			this.close();
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Salvar Anexo", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -98,8 +97,7 @@ public class EditarAnexoWindow extends EditarWindow {
 	            tempFile.deleteOnExit();
 	            return new FileOutputStream(tempFile);
 	        } catch (Exception e) {
-	        	Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-	            
+	        	exception(e);
 	            Notification.show("Carregamento do Arquivo", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 	        }
 
@@ -125,11 +123,13 @@ public class EditarAnexoWindow extends EditarWindow {
 	            
 	            Notification.show("Carregamento do Arquivo", "O arquivo foi enviado com sucesso.\n\nClique em SALVAR para concluir a submissão.", Notification.Type.HUMANIZED_MESSAGE);
 	        } catch (Exception e) {
-	        	Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-	            
+	        	exception(e);
 	            Notification.show("Carregamento do Arquivo", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 	        }
 		}
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

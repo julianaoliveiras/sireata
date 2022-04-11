@@ -134,9 +134,7 @@ public class EditarAtaWindow extends EditarWindow {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				cbDepartamento.setIdCampus(cbCampus.getCampus().getIdCampus());
-				carregarNumeroAta();
-				carregarPresidenteSecretario();
-				carregarMembrosOrgao();
+				carrega();
 			}
 		});
 		
@@ -147,18 +145,14 @@ public class EditarAtaWindow extends EditarWindow {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				cbOrgao.setIdDepartamento(cbDepartamento.getDepartamento().getIdDepartamento());
-				carregarNumeroAta();
-				carregarPresidenteSecretario();
-				carregarMembrosOrgao();
+				carrega();
 			}
 		});
 		
 		this.cbOrgao.addValueChangeListener(new ValueChangeListener() {
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				carregarNumeroAta();
-				carregarPresidenteSecretario();
-				carregarMembrosOrgao();
+				carrega();
 			}
 		});
 		
@@ -452,7 +446,7 @@ public class EditarAtaWindow extends EditarWindow {
 				this.cbOrgao.setOrgao(this.ata.getOrgao());
 			}
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+			exception(e);
 		}
 		
 		this.cbTipo.setValue(this.ata.getTipo());
@@ -515,7 +509,7 @@ public class EditarAtaWindow extends EditarWindow {
 					this.btVisualizarAnexo.setWidth("150px");
 				}
 			}catch(Exception e){
-				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+				exception(e);
 			}
 		
 			try {
@@ -526,7 +520,7 @@ public class EditarAtaWindow extends EditarWindow {
 					this.btRemoverPauta.setEnabled(false);
 				}
 			} catch (Exception e) {
-				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+				exception(e);
 			}
 		}
 	}
@@ -537,8 +531,7 @@ public class EditarAtaWindow extends EditarWindow {
 			
 			this.showReport(bo.gerarAta(this.ata));
 		} catch(Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Visualizar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -566,8 +559,7 @@ public class EditarAtaWindow extends EditarWindow {
 			this.atualizarGridPai();
 			this.close();
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Salvar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -580,8 +572,7 @@ public class EditarAtaWindow extends EditarWindow {
 				
 				this.tfNumero.setValue(String.valueOf(numero));
 			} catch (Exception e) {
-				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-				
+				exception(e);
 				Notification.show("Número de Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}	
 		}
@@ -606,8 +597,7 @@ public class EditarAtaWindow extends EditarWindow {
 				}
 			}
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Carregar Membros", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 		
@@ -637,8 +627,7 @@ public class EditarAtaWindow extends EditarWindow {
 					
 					this.ata.setParticipantes(bo.listarPorAta(this.ata.getIdAta()));
 				} catch (Exception e) {
-					Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-					
+					exception(e);
 					Notification.show("Participantes da Reunião", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 				}
 			}
@@ -669,8 +658,7 @@ public class EditarAtaWindow extends EditarWindow {
 					
 					this.ata.setAnexos(bo.listarPorAta(this.ata.getIdAta()));
 				} catch (Exception e) {
-					Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-					
+					exception(e);
 					Notification.show("Anexos", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 				}
 			}
@@ -692,8 +680,7 @@ public class EditarAtaWindow extends EditarWindow {
 			this.cbPresidente.setUsuario(presidente);
 			this.cbSecretario.setUsuario(secretario);
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Informações do Órgão", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -717,8 +704,7 @@ public class EditarAtaWindow extends EditarWindow {
 					PautaBO bo = new PautaBO();
 					this.ata.setPauta(bo.listarPorAta(this.ata.getIdAta()));
 				} catch (Exception e) {
-					Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-					
+					exception(e);
 					Notification.show("Pauta da Reunião", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 				}
 			}
@@ -776,8 +762,7 @@ public class EditarAtaWindow extends EditarWindow {
                         	
                         	carregarParticipantes();
 						} catch (Exception e) {
-							Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-							
+							exception(e);
 							Notification.show("Remover Participante", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 						}
                     }
@@ -871,8 +856,7 @@ public class EditarAtaWindow extends EditarWindow {
                         	
                         	carregarAnexos();
 						} catch (Exception e) {
-							Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-							
+							exception(e);
 							Notification.show("Remover Anexo", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 						}
                     }
@@ -974,8 +958,7 @@ public class EditarAtaWindow extends EditarWindow {
                         	
                         	carregaPauta();
 						} catch (Exception e) {
-							Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-							
+							exception(e);
 							Notification.show("Remover Pauta", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 						}
                     }
@@ -1045,8 +1028,7 @@ public class EditarAtaWindow extends EditarWindow {
 			this.btLiberarComentarios.setVisible(false);
 			this.btBloquearComentarios.setVisible(true);
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Liberar Comentários", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}		
 	}
@@ -1062,8 +1044,7 @@ public class EditarAtaWindow extends EditarWindow {
 			this.btLiberarComentarios.setVisible(true);
 			this.btBloquearComentarios.setVisible(false);
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Bloquear Comentários", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -1083,18 +1064,24 @@ public class EditarAtaWindow extends EditarWindow {
                     		atualizarGridPai();
                     		close();
 						} catch (Exception e) {
-							Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-							
+							exception(e);
 							Notification.show("Publicar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 						}
                     }
                 }
             });
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Publicar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+	}
+	private void carrega(){
+		carregarNumeroAta();
+		carregarPresidenteSecretario();
+		carregarMembrosOrgao();
 	}
 	
 }

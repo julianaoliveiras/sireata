@@ -118,8 +118,7 @@ public class EditarCampusWindow extends EditarWindow {
 			this.atualizarGridPai();
 			this.close();
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Salvar Câmpus", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -139,8 +138,7 @@ public class EditarCampusWindow extends EditarWindow {
 	            tempFile.deleteOnExit();
 	            return new FileOutputStream(tempFile);
 	        } catch (Exception e) {
-	        	Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-	            
+	        	exception(e);
 	            Notification.show("Carregamento do Arquivo", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 	        }
 
@@ -159,12 +157,14 @@ public class EditarCampusWindow extends EditarWindow {
 	            
 	            carregarLogo();
 	        } catch (IOException e) {
-	        	Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-	            
+	        	exception(e);
 	            Notification.show("Carregamento do Arquivo", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 	        }
 		}
 
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

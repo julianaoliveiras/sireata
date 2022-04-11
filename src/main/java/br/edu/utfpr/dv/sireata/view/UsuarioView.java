@@ -56,8 +56,7 @@ public class UsuarioView extends ListView {
 				this.adicionarGridId(itemId, u.getIdUsuario());
 			}
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Listar Usuários", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
     }
@@ -75,8 +74,7 @@ public class UsuarioView extends ListView {
 			
 			UI.getCurrent().addWindow(new EditarUsuarioWindow(usuario, this));
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Editar Usuário", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -91,6 +89,9 @@ public class UsuarioView extends ListView {
 	public void filtrar() {
 		// TODO Auto-generated method stub
 		
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

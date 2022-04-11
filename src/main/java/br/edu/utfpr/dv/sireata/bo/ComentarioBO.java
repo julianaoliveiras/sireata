@@ -9,39 +9,31 @@ import br.edu.utfpr.dv.sireata.model.Comentario;
 import br.edu.utfpr.dv.sireata.model.Comentario.SituacaoComentario;
 
 public class ComentarioBO {
+	ComentarioDAO dao = new ComentarioDAO();
 	
 	public Comentario buscarPorId(int id) throws Exception{
 		try{
-			ComentarioDAO dao = new ComentarioDAO();
-			
 			return dao.buscarPorId(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public Comentario buscarPorUsuario(int idUsuario, int idPauta) throws Exception{
 		try{
-			ComentarioDAO dao = new ComentarioDAO();
-			
 			return dao.buscarPorUsuario(idUsuario, idPauta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Comentario> listarPorPauta(int idPauta) throws Exception{
 		try{
-			ComentarioDAO dao = new ComentarioDAO();
-			
 			return dao.listarPorPauta(idPauta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -59,18 +51,16 @@ public class ComentarioBO {
 		try{
 			if((comentario.getPauta() == null) || (comentario.getPauta().getIdPauta() == 0)){
 				throw new Exception("Informe a pauta.");
-			}
-			
-			this.validarDados(comentario);
-			
-			ComentarioDAO dao = new ComentarioDAO();
-			
+			}		
+			this.validarDados(comentario);			
 			return dao.salvar(comentario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

@@ -30,147 +30,119 @@ import br.edu.utfpr.dv.sireata.model.Orgao;
 import br.edu.utfpr.dv.sireata.model.ParticipanteReport;
 
 public class AtaBO {
+	AtaDAO dao = new AtaDAO();
+	PautaBO pbo = new PautaBO();
+			AtaParticipanteBO apbo = new AtaParticipanteBO();
+			OrgaoBO obo = new OrgaoBO();
+			
+			AtaReport report = new AtaReport();
+			String texto;
+			DecimalFormat df = new DecimalFormat("00");
 	
 	public Ata buscarPorId(int id) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.buscarPorId(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public Ata buscarPorNumero(int idOrgao, TipoAta tipo, int numero, int ano) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.buscarPorNumero(idOrgao, tipo, numero, ano);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public Ata buscarPorPauta(int idPauta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{	
 			return dao.buscarPorPauta(idPauta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public int buscarProximoNumeroAta(int idOrgao, int ano, TipoAta tipo) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.buscarProximoNumeroAta(idOrgao, ano, tipo);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPublicadas() throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPublicadas();
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPorOrgao(int idOrgao) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPorOrgao(idOrgao);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPorDepartamento(int idDepartamento) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPorDepartamento(idDepartamento);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPorCampus(int idCampus) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPorCampus(idCampus);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarNaoPublicadas(int idUsuario) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarNaoPublicadas(idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPorOrgao(int idOrgao, int idUsuario) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPorOrgao(idOrgao, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPorDepartamento(int idDepartamento, int idUsuario) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPorDepartamento(idDepartamento, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Ata> listarPorCampus(int idCampus, int idUsuario) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			
 			return dao.listarPorCampus(idCampus, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -200,17 +172,12 @@ public class AtaBO {
 	}
 	
 	public int salvar(Ata ata) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
-			int id = dao.salvar(ata);
-			
+		try{	
+			int id = dao.salvar(ata);			
 			if(ata.getPauta() != null){
-				int i = 1;
-				
+				int i = 1;				
 				for(Pauta p : ata.getPauta()){
-					PautaDAO pdao = new PautaDAO();
-					
+					PautaDAO pdao = new PautaDAO();					
 					p.getAta().setIdAta(id);
 					p.setOrdem(i);
 					pdao.salvar(p);
@@ -242,8 +209,7 @@ public class AtaBO {
 			
 			return id;
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -253,49 +219,37 @@ public class AtaBO {
 	}
 	
 	public boolean temComentarios(int idAta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.temComentarios(idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public boolean isPresidenteOuSecretario(int idUsuario, int idAta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.isPresidenteOuSecretario(idUsuario, idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public boolean isPresidente(int idUsuario, int idAta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.isPresidente(idUsuario, idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public boolean isPublicada(int idAta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			return dao.isPublicada(idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -305,13 +259,10 @@ public class AtaBO {
 	}
 	
 	public void liberarComentarios(int idAta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			dao.liberarComentarios(idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -321,13 +272,10 @@ public class AtaBO {
 	}
 	
 	public void bloquearComentarios(int idAta) throws Exception{
-		try{
-			AtaDAO dao = new AtaDAO();
-			
+		try{			
 			dao.bloquearComentarios(idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -338,66 +286,22 @@ public class AtaBO {
 	
 	public AtaReport gerarAtaReport(int idAta) throws Exception{
 		try{
-			PautaBO pbo = new PautaBO();
-			AtaParticipanteBO apbo = new AtaParticipanteBO();
-			OrgaoBO obo = new OrgaoBO();
-			Ata ata = this.buscarPorId(idAta);
-			Orgao orgao = obo.buscarPorId(ata.getOrgao().getIdOrgao());
-			AtaReport report = new AtaReport();
-			String texto;
-			DecimalFormat df = new DecimalFormat("00");
-			
-			report.setNumero(df.format(ata.getNumero()) + "/" + String.valueOf(DateUtils.getYear(ata.getData())));
-			report.setDataHora(DateUtils.format(ata.getData(), "dd/MM/yyyy") + " às " + DateUtils.format(ata.getData(), "HH") + " horas" + (DateUtils.getMinute(ata.getData()) > 0 ? " e " + DateUtils.format(ata.getData(), "mm") + " minutos" : "") + ".");
-			report.setLocal(ata.getLocal());
-			report.setPresidente(ata.getPresidente().getNome());
-			report.setSecretario(ata.getSecretario().getNome());
-			
-			texto = this.getDataExtenso(ata.getData()) + ", no " + StringEscapeUtils.escapeHtml4(ata.getLocalCompleto()) + 
-					" realizou-se a " + StringUtils.getExtensoOrdinal(ata.getNumero(), true) +
-					" reunião " + (ata.getTipo() == TipoAta.ORDINARIA ? "ordinária" : "extraordinária") +
-					" de " + String.valueOf(DateUtils.getYear(ata.getData())) + " do(a) " +
-					StringEscapeUtils.escapeHtml4(orgao.getNomeCompleto()) + ", a qual foi conduzida pelo(a) " + 
-					(ata.getPresidente().getIdUsuario() == orgao.getPresidente().getIdUsuario() ? StringEscapeUtils.escapeHtml4(orgao.getDesignacaoPresidente()) + " " : "professor(a) ") +
-					StringEscapeUtils.escapeHtml4(ata.getPresidente().getNome()) + " e teve como pauta: <b>";
-			
-			ata.setPauta(pbo.listarPorAta(idAta));
-			
-			for(int i = 1; i <= ata.getPauta().size(); i++){
-				texto += "(" + String.valueOf(i) + ") " + StringEscapeUtils.escapeHtml4(ata.getPauta().get(i - 1).getTitulo()) + (i == ata.getPauta().size() ? "." : "; ");
-			}
-			
-			texto += "</b> " + ata.getConsideracoesIniciais() + " ";
-			
-			for(int i = 1; i <= ata.getPauta().size(); i++){
-				texto += "<b>(" + String.valueOf(i) + ") " + StringEscapeUtils.escapeHtml4(ata.getPauta().get(i - 1).getTitulo()) + 
-						"</b>, " + StringEscapeUtils.escapeHtml4(ata.getPauta().get(i - 1).getDescricao()) + " ";
-			}
-			
-			texto += " Nada mais havendo a tratar, deu-se por encerrada a reunião, da qual eu, " +
-					StringEscapeUtils.escapeHtml4(ata.getSecretario().getNome()) + ", lavrei a presente ata que, após aprovada, vai assinada por mim e pelos demais presentes.";
-			
-			report.setTexto(texto);
-			
-			ata.setParticipantes(apbo.listarPorAta(idAta));
-			
+			Ata ata = this.buscarPorId(idAta);		
+			report(idAta);
+			reportTexto(idAta);						
 			for(AtaParticipante participante : ata.getParticipantes()){
-				OrgaoDAO odao = new OrgaoDAO();
-				ParticipanteReport pr = new ParticipanteReport();
-				
+				ParticipanteReport pr = new ParticipanteReport();				
 				pr.setNome(participante.getParticipante().getNome() + (participante.getDesignacao().isEmpty() ? "" : " (" + participante.getDesignacao() + ")"));
 				pr.setPresente(participante.isPresente());
 				if(!participante.isPresente()){
 					pr.setMotivo(participante.getMotivo());					
-				}
-				
+				}	
 				if(participante.isMembro()){
 					report.getParticipantesMembros().add(pr);
 				}else{
 					report.getDemaisParticipantes().add(pr);
 				}
 			}
-			
 			int i = 1;
 			for(ParticipanteReport pr : report.getParticipantesMembros()){
 				pr.setOrdem(i++);
@@ -408,8 +312,7 @@ public class AtaBO {
 			
 			return report;
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -421,21 +324,17 @@ public class AtaBO {
 	public byte[] gerarAta(int idAta) throws Exception{
 		try{
 			AtaReport report = this.gerarAtaReport(idAta);
-			
 			List<AtaReport> list = new ArrayList<AtaReport>();
-			list.add(report);
-			
-			ByteArrayOutputStream pdf = new ReportUtils().createPdfStream(list, "Ata");
-			
+			list.add(report);			
+			ByteArrayOutputStream pdf = new ReportUtils().createPdfStream(list, "Ata");			
 			AnexoBO bo = new AnexoBO();
-			List<Anexo> anexos = bo.listarPorAta(idAta);
+			List<Anexo> anexos = bo.listarPorAta(idAta);			
 			
 			if(anexos.size() > 0) {
 				ByteArrayOutputStream output = new ByteArrayOutputStream();
 				PDFMergerUtility pdfMerge = new PDFMergerUtility();
 				
 				pdfMerge.setDestinationStream(output);
-				
 				pdfMerge.addSource(new ByteArrayInputStream(pdf.toByteArray()));
 				for(Anexo a : anexos){
 					pdfMerge.addSource(new ByteArrayInputStream(a.getArquivo()));
@@ -448,8 +347,7 @@ public class AtaBO {
 				return pdf.toByteArray();				
 			}
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -460,13 +358,10 @@ public class AtaBO {
 	
 	public void publicar(int idAta) throws Exception{
 		try{
-			AtaDAO dao = new AtaDAO();
-			byte[] pdf = this.gerarAta(idAta);
-			
+			byte[] pdf = this.gerarAta(idAta);			
 			dao.publicar(idAta, pdf);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -478,14 +373,10 @@ public class AtaBO {
 			}
 			if(this.isPublicada(idAta)){
 				throw new Exception("A ata já foi publicada e não pode ser excluída.");
-			}
-			
-			AtaDAO dao = new AtaDAO();
-			
+			}			
 			return dao.excluir(idAta);
-		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+		}catch(Exception e){			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -515,5 +406,40 @@ public class AtaBO {
 		
 		return resultado;
 	}
-
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+	}
+	private void report (int idAta) throws Exception{
+		Ata ata = this.buscarPorId(idAta);
+			Orgao orgao = obo.buscarPorId(ata.getOrgao().getIdOrgao());
+			
+			report.setNumero(df.format(ata.getNumero()) + "/" + String.valueOf(DateUtils.getYear(ata.getData())));
+			report.setDataHora(DateUtils.format(ata.getData(), "dd/MM/yyyy") + " às " + DateUtils.format(ata.getData(), "HH") + " horas" + (DateUtils.getMinute(ata.getData()) > 0 ? " e " + DateUtils.format(ata.getData(), "mm") + " minutos" : "") + ".");
+			report.setLocal(ata.getLocal());
+			report.setPresidente(ata.getPresidente().getNome());
+			report.setSecretario(ata.getSecretario().getNome());			
+			texto = this.getDataExtenso(ata.getData()) + ", no " + StringEscapeUtils.escapeHtml4(ata.getLocalCompleto()) + 
+					" realizou-se a " + StringUtils.getExtensoOrdinal(ata.getNumero(), true) +
+					" reunião " + (ata.getTipo() == TipoAta.ORDINARIA ? "ordinária" : "extraordinária") +
+					" de " + String.valueOf(DateUtils.getYear(ata.getData())) + " do(a) " +
+					StringEscapeUtils.escapeHtml4(orgao.getNomeCompleto()) + ", a qual foi conduzida pelo(a) " + 
+					(ata.getPresidente().getIdUsuario() == orgao.getPresidente().getIdUsuario() ? StringEscapeUtils.escapeHtml4(orgao.getDesignacaoPresidente()) + " " : "professor(a) ") +
+					StringEscapeUtils.escapeHtml4(ata.getPresidente().getNome()) + " e teve como pauta: <b>";			
+			ata.setPauta(pbo.listarPorAta(idAta));
+	}
+	private void reportTexto (int idAta) throws Exception{
+		Ata ata = this.buscarPorId(idAta);
+		for(int i = 1; i <= ata.getPauta().size(); i++){
+			texto += "(" + String.valueOf(i) + ") " + StringEscapeUtils.escapeHtml4(ata.getPauta().get(i - 1).getTitulo()) + (i == ata.getPauta().size() ? "." : "; ");
+		}		
+		texto += "</b> " + ata.getConsideracoesIniciais() + " ";		
+		for(int i = 1; i <= ata.getPauta().size(); i++){
+			texto += "<b>(" + String.valueOf(i) + ") " + StringEscapeUtils.escapeHtml4(ata.getPauta().get(i - 1).getTitulo()) + 
+					"</b>, " + StringEscapeUtils.escapeHtml4(ata.getPauta().get(i - 1).getDescricao()) + " ";
+		}		
+		texto += " Nada mais havendo a tratar, deu-se por encerrada a reunião, da qual eu, " +
+				StringEscapeUtils.escapeHtml4(ata.getSecretario().getNome()) + ", lavrei a presente ata que, após aprovada, vai assinada por mim e pelos demais presentes.";		
+		report.setTexto(texto);
+		ata.setParticipantes(apbo.listarPorAta(idAta));
+	}
 }

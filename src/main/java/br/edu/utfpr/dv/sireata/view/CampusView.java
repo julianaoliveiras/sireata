@@ -36,8 +36,7 @@ public class CampusView extends ListView {
 				this.adicionarGridId(itemId, c.getIdCampus());
 			}
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Listar Câmpus", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -55,8 +54,7 @@ public class CampusView extends ListView {
 			
 			UI.getCurrent().addWindow(new EditarCampusWindow(campus, this));
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Editar Câmpus", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -71,6 +69,9 @@ public class CampusView extends ListView {
 	public void filtrar() throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 
 }

@@ -16,27 +16,22 @@ import br.edu.utfpr.dv.sireata.model.Usuario;
 import br.edu.utfpr.dv.sireata.util.StringUtils;
 
 public class UsuarioBO {
+	UsuarioDAO dao = new UsuarioDAO();
 	
 	public List<Usuario> listarTodos(boolean apenasAtivos) throws Exception{
-		try {
-			UsuarioDAO dao = new UsuarioDAO();
-			
+		try {		
 			return dao.listarTodos(apenasAtivos);
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Usuario> listar(String nome, boolean apenasAtivos, boolean apenasExternos) throws Exception {
 		try{
-			UsuarioDAO dao = new UsuarioDAO();
-			
 			return dao.listar(nome.trim(), apenasAtivos, apenasExternos);
 		}catch(SQLException e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -52,13 +47,9 @@ public class UsuarioBO {
 			if(usuario.getNome().isEmpty()){
 				throw new Exception("Informe o nome.");
 			}
-			
-			UsuarioDAO dao = new UsuarioDAO();
-			
 			return dao.salvar(usuario);
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -81,36 +72,27 @@ public class UsuarioBO {
 	
 	public Usuario buscarPorLogin(String login) throws Exception{
 		try {
-			UsuarioDAO dao = new UsuarioDAO();
-			
 			return dao.buscarPorLogin(login);
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public Usuario buscarPorId(int id) throws Exception{
 		try {
-			UsuarioDAO dao = new UsuarioDAO();
-			
 			return dao.buscarPorId(id);
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public String buscarEmail(int id) throws Exception{
 		try {
-			UsuarioDAO dao = new UsuarioDAO();
-			
 			return dao.buscarEmail(id);
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -119,8 +101,6 @@ public class UsuarioBO {
 		try {
 			String hashAtual = StringUtils.generateSHA3Hash(senhaAtual);
 			String novoHash = StringUtils.generateSHA3Hash(novaSenha);
-			
-			UsuarioDAO dao = new UsuarioDAO();
 			Usuario usuario = dao.buscarPorId(idUsuario);
 			
 			if(usuario == null){
@@ -141,8 +121,7 @@ public class UsuarioBO {
 			
 			return usuario;
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -206,8 +185,7 @@ public class UsuarioBO {
 				
 				this.salvar(usuario);
 			}catch(Exception e){
-				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-				
+				exception(e);
 				throw new Exception("Usuário ou senha inválidos." + System.lineSeparator() + "Detalhes: " + e.getMessage());
 			}
 		}
@@ -233,21 +211,19 @@ public class UsuarioBO {
 	}
 	
 	public String[] buscarEmails(int[] ids) throws Exception{
-		UsuarioDAO dao = new UsuarioDAO();
-		
 		return dao.buscarEmails(ids);
 	}
 	
 	public boolean podeCriarAta(int idUsuario) throws Exception{
 		try {
-			UsuarioDAO dao = new UsuarioDAO();
-			
 			return dao.podeCriarAta(idUsuario);
 		} catch (SQLException e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 	
 }

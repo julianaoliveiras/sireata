@@ -8,27 +8,22 @@ import br.edu.utfpr.dv.sireata.dao.AtaParticipanteDAO;
 import br.edu.utfpr.dv.sireata.model.AtaParticipante;
 
 public class AtaParticipanteBO {
+	AtaParticipanteDAO dao = new AtaParticipanteDAO();
 	
 	public AtaParticipante buscarPorId(int id) throws Exception{
 		try{
-			AtaParticipanteDAO dao = new AtaParticipanteDAO();
-			
 			return dao.buscarPorId(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<AtaParticipante> listarPorAta(int idAta) throws Exception{
 		try{
-			AtaParticipanteDAO dao = new AtaParticipanteDAO();
-			
 			return dao.listarPorAta(idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -49,16 +44,11 @@ public class AtaParticipanteBO {
 		try{
 			if((participante.getAta() == null) || (participante.getAta().getIdAta() == 0)){
 				throw new Exception("Informe a ata.");
-			}
-			
-			this.validarDados(participante);
-			
-			AtaParticipanteDAO dao = new AtaParticipanteDAO();
-			
+			}		
+			this.validarDados(participante);			
 			return dao.salvar(participante);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);	
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -69,14 +59,13 @@ public class AtaParticipanteBO {
 	
 	public void excluir(int id) throws Exception{
 		try{
-			AtaParticipanteDAO dao = new AtaParticipanteDAO();
-			
 			dao.excluir(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
-
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+	}
 }

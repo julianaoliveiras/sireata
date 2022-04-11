@@ -8,27 +8,22 @@ import br.edu.utfpr.dv.sireata.dao.AnexoDAO;
 import br.edu.utfpr.dv.sireata.model.Anexo;
 
 public class AnexoBO {
-	//dry.buscarPorId(int id);  
-       public Anexo buscarPorId(int id) throws Exception{
-		try{
-			AnexoDAO dao = new AnexoDAO();
-			
+	AnexoDAO dao = new AnexoDAO();
+
+	public Anexo buscarPorId(int id) throws Exception{
+		try{						
 			return dao.buscarPorId(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);			
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Anexo> listarPorAta(int idAta) throws Exception{
-		try{
-			AnexoDAO dao = new AnexoDAO();
-			
+		try{			
 			return dao.listarPorAta(idAta);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);			
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -46,16 +41,11 @@ public class AnexoBO {
 		try{
 			if((anexo.getAta() == null) || (anexo.getAta().getIdAta() == 0)){
 				throw new Exception("Informe a ata.");
-			}
-			
-			this.validarDados(anexo);
-			
-			AnexoDAO dao = new AnexoDAO();
-			
+			}			
+			this.validarDados(anexo);			
 			return dao.salvar(anexo);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -65,15 +55,15 @@ public class AnexoBO {
 	}
 	
 	public void excluir(int id) throws Exception{
-		try{
-			AnexoDAO dao = new AnexoDAO();
-			
+		try{			
 			dao.excluir(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
-	
+
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+	}	
 }

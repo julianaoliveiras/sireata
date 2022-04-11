@@ -128,8 +128,7 @@ public class AtaView extends ListView {
 				
 				this.showReport(ata.getDocumento());
 			} catch(Exception e) {
-				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-				
+				exception(e);
 				Notification.show("Visualizar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}
 		}
@@ -146,8 +145,7 @@ public class AtaView extends ListView {
 				
 				this.showReport(bo.gerarAta(bo.buscarPorId((int)id)));
 			} catch(Exception e) {
-				Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-				
+				exception(e);
 				Notification.show("Prévia da Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 			}
 		}
@@ -174,8 +172,7 @@ public class AtaView extends ListView {
 				this.adicionarGridId(itemId, u.getIdAta());
 			}
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Listar Usuários", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -194,8 +191,7 @@ public class AtaView extends ListView {
 			
 			UI.getCurrent().addWindow(new EditarAtaWindow(ata, this));
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Editar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -220,8 +216,7 @@ public class AtaView extends ListView {
 		                    		
 		                    		atualizarGrid();
 								} catch (Exception e) {
-									Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-									
+									exception(e);
 									Notification.show("Excluir Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 								}
 		                    }
@@ -232,8 +227,7 @@ public class AtaView extends ListView {
 				}
 	    	}
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Excluir Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -278,8 +272,7 @@ public class AtaView extends ListView {
 		                    		
 		                    		atualizarGrid();
 								} catch (Exception e) {
-									Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-									
+									exception(e);
 									Notification.show("Publicar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 								}
 		                    }
@@ -290,8 +283,7 @@ public class AtaView extends ListView {
 	    		}
 	    	}
 		} catch (Exception e) {
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			Notification.show("Publicar Ata", e.getMessage(), Notification.Type.ERROR_MESSAGE);
 		}
 	}
@@ -319,6 +311,9 @@ public class AtaView extends ListView {
 		}
 		
 		this.atualizarGrid();
+	}
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
 	}
 	
 }

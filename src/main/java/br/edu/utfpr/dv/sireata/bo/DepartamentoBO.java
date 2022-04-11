@@ -8,75 +8,58 @@ import br.edu.utfpr.dv.sireata.dao.DepartamentoDAO;
 import br.edu.utfpr.dv.sireata.model.Departamento;
 
 public class DepartamentoBO {
+	DepartamentoDAO dao = new DepartamentoDAO();
 	
 	public Departamento buscarPorId(int id) throws Exception{
 		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
 			return dao.buscarPorId(id);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public Departamento buscarPorOrgao(int idOrgao) throws Exception{
 		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
 			return dao.buscarPorOrgao(idOrgao);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Departamento> listarTodos(boolean apenasAtivos) throws Exception{
 		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
 			return dao.listarTodos(apenasAtivos);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Departamento> listarPorCampus(int idCampus, boolean apenasAtivos) throws Exception{
 		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
 			return dao.listarPorCampus(idCampus, apenasAtivos);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Departamento> listarParaCriacaoAta(int idCampus, int idUsuario) throws Exception{
 		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
 			return dao.listarParaCriacaoAta(idCampus, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
 	
 	public List<Departamento> listarParaConsultaAtas(int idCampus, int idUsuario) throws Exception{
 		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
 			return dao.listarParaConsultaAtas(idCampus, idUsuario);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
@@ -89,15 +72,14 @@ public class DepartamentoBO {
 			throw new Exception("Informe o nome do departamento.");
 		}
 		
-		try{
-			DepartamentoDAO dao = new DepartamentoDAO();
-			
+		try{			
 			return dao.salvar(departamento);
 		}catch(Exception e){
-			Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
-			
+			exception(e);
 			throw new Exception(e.getMessage());
 		}
 	}
-
+	private void exception(Exception e){
+		Logger.getGlobal().log(Level.SEVERE, e.getMessage(), e);
+	}
 }
