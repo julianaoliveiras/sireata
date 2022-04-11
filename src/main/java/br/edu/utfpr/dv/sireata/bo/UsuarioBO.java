@@ -54,22 +54,6 @@ public class UsuarioBO {
 		}
 	}
 	
-	private boolean loginEAluno(String login){
-		if(login.toLowerCase().startsWith("a")){
-			login = login.substring(1);
-			
-			try{
-				Integer.parseInt(login);
-				
-				return true;
-			}catch(Exception e){
-				return false;
-			}
-		}
-		
-		return false;
-	}
-	
 	public Usuario buscarPorLogin(String login) throws Exception{
 		try {
 			return dao.buscarPorLogin(login);
@@ -114,11 +98,9 @@ public class UsuarioBO {
 			}
 			if(senhaAtual.equals(novaSenha)){
 				throw new Exception("A nova senha não deve ser igual à senha atual.");
-			}
-			
+			}		
 			usuario.setSenha(novoHash);
-			dao.salvar(usuario);
-			
+			dao.salvar(usuario);			
 			return usuario;
 		} catch (SQLException e) {
 			exception(e);
@@ -159,9 +141,6 @@ public class UsuarioBO {
 					ldapUtils.authenticate(login, senha);
 					
 					Map<String, String> dataLdap = ldapUtils.getLdapProperties(login);
-	
-					//String cnpjCpf = dataLdap.get(LdapConfig.getInstance().getCpfField());
-					//String matricula = dataLdap.get(LdapConfig.getInstance().getRegisterField());
 					String nome = this.formatarNome(dataLdap.get(LdapConfig.getInstance().getNameField()));
 					String email = dataLdap.get(LdapConfig.getInstance().getEmailField());
 					
@@ -208,10 +187,6 @@ public class UsuarioBO {
 		}
 		
 		return String.join(" ", list2);
-	}
-	
-	public String[] buscarEmails(int[] ids) throws Exception{
-		return dao.buscarEmails(ids);
 	}
 	
 	public boolean podeCriarAta(int idUsuario) throws Exception{

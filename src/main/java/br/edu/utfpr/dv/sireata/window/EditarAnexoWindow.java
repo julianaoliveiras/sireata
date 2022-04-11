@@ -87,8 +87,6 @@ public class EditarAnexoWindow extends EditarWindow {
 		@Override
 		public OutputStream receiveUpload(String filename, String mimeType) {
 			try {
-				//imageFileUploaded.setVisible(false);
-				
 				if(!mimeType.equals("application/pdf")){
 					throw new Exception("O arquivo precisa estar no formato PDF.");
 				}
@@ -117,10 +115,7 @@ public class EditarAnexoWindow extends EditarWindow {
 	            
 	            input.read(buffer);
 	            
-	            anexo.setArquivo(buffer);
-	            
-	            //imageFileUploaded.setVisible(true);
-	            
+	            anexo.setArquivo(buffer);            
 	            Notification.show("Carregamento do Arquivo", "O arquivo foi enviado com sucesso.\n\nClique em SALVAR para concluir a submissão.", Notification.Type.HUMANIZED_MESSAGE);
 	        } catch (Exception e) {
 	        	exception(e);

@@ -137,10 +137,7 @@ public class SideMenu extends CustomComponent {
 	}
 
 	private void logoff(){
-    	// "Logout" the user
         getSession().setAttribute("usuario", null);
-
-        // Refresh this view, should redirect to login view
         getUI().getNavigator().navigateTo(LoginView.NAME);
     }
 	

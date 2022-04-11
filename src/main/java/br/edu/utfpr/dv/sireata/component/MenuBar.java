@@ -117,13 +117,6 @@ public class MenuBar extends CustomComponent {
     	});
     	
     	MenuItem help = this.menu.addItem("", new ThemeResource("images/help.png"), null);
-    	/*help.addItem("Reportar Erro", new Command(){
-    	    @Override
-    	    public void menuSelected(MenuItem selectedItem){
-    	    	//UI.getCurrent().getNavigator().navigateTo(BugReportView.NAME);
-    	    }
-    	});
-    	help.addSeparator();*/
     	help.addItem("Sobre o Sistema", new Command(){
     	    @Override
     	    public void menuSelected(MenuItem selectedItem){
@@ -135,10 +128,7 @@ public class MenuBar extends CustomComponent {
 	}
 	
 	private void logoff(){
-    	// "Logout" the user
         getSession().setAttribute("usuario", null);
-
-        // Refresh this view, should redirect to login view
         getUI().getNavigator().navigateTo(LoginView.NAME);
     }
 

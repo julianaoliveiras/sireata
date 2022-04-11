@@ -38,8 +38,7 @@ public class PautaBO {
 		try{
 			if((pauta.getAta() == null) || (pauta.getAta().getIdAta() == 0)){
 				throw new Exception("Informe a ata.");
-			}
-			
+			}			
 			this.validarDados(pauta);
 			return dao.salvar(pauta);
 		}catch(Exception e){
