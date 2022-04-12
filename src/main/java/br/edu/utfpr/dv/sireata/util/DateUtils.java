@@ -47,49 +47,37 @@ public class DateUtils {
 		}
 	}
 	public static int getYear(){
-		Calendar today = DateUtils.getToday();
-		return today.get(Calendar.YEAR);
+		return DateUtils.getToday().get(Calendar.YEAR);
 	}
 	
 	public static int getDayOfMonth(Date date){
-		Calendar cal = getCalendarDry(date);
-		return cal.get(Calendar.DAY_OF_MONTH);
+		return getCalendarDry(date).get(Calendar.DAY_OF_MONTH);
 	}
 	
 	public static int getMonth(Date date){
-		Calendar cal = getCalendarDry(date);
-		return cal.get(Calendar.MONTH);
+		return getCalendarDry(date).get(Calendar.MONTH);
 	}
 	
 	public static int getYear(Date date){
-		Calendar cal = getCalendarDry(date);
-		return cal.get(Calendar.YEAR);
+		return getCalendarDry(date).get(Calendar.YEAR);
 	}
 	
 	public static int getHour(Date date){
-		Calendar cal = getCalendarDry(date);
-		return cal.get(Calendar.HOUR_OF_DAY);
+		return getCalendarDry(date).get(Calendar.HOUR_OF_DAY);
 	}
 	
 	public static int getMinute(Date date){
-		Calendar cal = getCalendarDry(date);
-		return cal.get(Calendar.MINUTE);
+		return getCalendarDry(date).get(Calendar.MINUTE);
 	}
 	public static Date concat(Date date, Date time){
-		Calendar cal = getCalendarDry(date);
-		Calendar cal2 = getCalendarDry(time);
-		
-		cal.set(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY));
-		cal.set(Calendar.MINUTE, cal2.get(Calendar.MINUTE));
-		
-		return cal.getTime();
+		getCalendarDry(date).set(Calendar.HOUR_OF_DAY, getCalendarDry(time).get(Calendar.HOUR_OF_DAY));
+		getCalendarDry(date).set(Calendar.MINUTE, getCalendarDry(time).get(Calendar.MINUTE));	
+		return getCalendarDry(date).getTime();
 	}
 	
 	public static String format(Date date, String format){
 		try{
-			DateFormat df = new SimpleDateFormat(format);
-			
-			return df.format(date);
+			return new SimpleDateFormat(format).format(date);
 		}catch(Exception e){
 			return "";
 		}
